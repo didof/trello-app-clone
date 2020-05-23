@@ -1,6 +1,8 @@
 import React from 'react'
 
 function CustomColumns({ children, numCols = 3 }) {
+	if(!children) return <div></div>
+
 	let width
 	switch (numCols) {
 		case 2:

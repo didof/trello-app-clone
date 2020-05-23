@@ -27,7 +27,8 @@ export default (state, action) => {
 				...state,
 				inUse: { id: templatePicked.id, label: templatePicked.label }
 			}
-
+		case 'reset_status':
+			return initialState
 		default:
 			return state
 	}

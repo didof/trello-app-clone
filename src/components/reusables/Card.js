@@ -7,7 +7,7 @@ import AddCard from './AddCard'
 import Button from '../reusables/Button'
 
 function Card({ id, label, content }) {
-	const { dispatch } = useContext(TemplateContext)
+	const [ state, dispatch ] = useContext(TemplateContext)
 
 	const buttonsRef = useRef()
 

@@ -31,8 +31,8 @@ function Modal() {
 				</header>
 				<section className='modal-card-body has-text-dark'>{modal.content}</section>
 				<footer className='modal-card-foot'>
-					<button className='button is-success'>Proceed</button>
-					{/* <button className='button'>Cancel</button> */}
+					{/* <button className='button is-success'>Proceed</button>
+					<button className='button'>Cancel</button> */}
 				</footer>
 			</div>
 		</div>
