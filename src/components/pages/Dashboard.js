@@ -8,6 +8,7 @@ import { TrelloContext } from '../../contexts/trello/context'
 import Trello from '../main/Trello'
 
 function Dashboard() {
+
 	const [TemplateState] = useContext(TemplateContext)
 	const [UIState, UIDispatch] = useContext(UIContext)
 	const [TrelloState, TrelloDispatch] = useContext(TrelloContext)

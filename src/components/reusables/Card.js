@@ -4,10 +4,11 @@ import history from '../../history'
 import { TemplateContext } from '../../contexts/templates/context'
 
 import AddCard from './AddCard'
+import Buttons from '../reusables/Buttons'
 import Button from '../reusables/Button'
 
 function Card({ id, label, content }) {
-	const [ state, dispatch ] = useContext(TemplateContext)
+	const [state, dispatch] = useContext(TemplateContext)
 
 	const buttonsRef = useRef()
 
@@ -65,9 +66,25 @@ function Card({ id, label, content }) {
 					bottom: 0,
 				}}
 			>
-				<Button click={handle_pickTemplate}>Pick</Button>
-				<Button>Edit</Button>
-				<Button click={handle_deleteTemplate}>Delete</Button>
+				<Buttons addons>
+					<Button
+						click={handle_pickTemplate}
+						styles={['addons', 'primary', 'inverted']}
+						icon='edit'
+					>
+						Pick
+					</Button>
+					<Button styles={['addons', 'info', 'inverted']} icon='edit'>
+						Edit
+					</Button>
+					<Button
+						click={handle_deleteTemplate}
+						styles={['addons', 'warning', 'outlined']}
+						icon='trash'
+					>
+						Delete
+					</Button>
+				</Buttons>
 			</footer>
 		</div>
 	)

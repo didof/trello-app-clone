@@ -55,6 +55,8 @@ function Trello({ data }) {
 			return
 		}
 
+		// if drop in another list
+
 		const updatedSourceColumn = {
 			...sourceColumn,
 			taskIds: updatedTaskIds,
@@ -68,11 +70,11 @@ function Trello({ data }) {
 			taskIds: updatedDestinationTaskIds,
 		}
 
-		const updatedColumns = Array.from(state.columns).filter(
-			(column) =>
-				column.id === updatedSourceColumn || column.id === updatedDestinationColumn
-		)
-		console.log(updatedColumns)
+		const updatedColumns = Array.from(state.columns).filter((column) => {
+			return (
+				column.id !== source.droppableId && column.id !== destination.droppableId
+			)
+		})
 		updatedColumns.push(updatedSourceColumn)
 		updatedColumns.push(updatedDestinationColumn)
 

@@ -1,48 +1,74 @@
 export default {
+	template_inUse: null,
 	template_tutorial: {
 		tasks: [
-			{ id: 'task-1', content: 'Create a New Awesome Idea' },
-			{ id: 'task-2', content: 'Sort some Ideas' },
-			{ id: 'task-3', content: 'Remove a Bad Idea' },
-			{ id: 'task-4', content: 'Finally complete an Idea' },
+			{
+				id: 'tutorial-1',
+				config: { editable: true },
+				content: 'Create a New Awesome Idea',
+			},
+			{ id: 'tutorial-2', config: { editable: true }, content: 'Swap some Ideas' },
+			{
+				id: 'tutorial-3',
+				config: { editable: false },
+				content: 'Permanentely Remove some really Bad Idea',
+			},
+			{
+				id: 'tutorial-4',
+				config: { editable: true },
+				content: 'Complete an Idea',
+			},
+			{ id: 'tutorial-5', config: { editable: true }, content: 'Edit an Idea' },
+			// { id: 'task-3', content: 'Remove a Bad Idea' },
+			// { id: 'task-4', content: 'Finally complete an Idea' },
 		],
 		columns: [
 			{
-				id: 'column-1',
-				title: 'Idea',
-				taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
-				icon: 'lightbulb',
+				id: 'column-bin',
+				title: 'Bin',
+				taskIds: ['tutorial-3'],
+				config: {
+					color: 'secondary',
+					icon: 'trash',
+				},
 			},
 			{
-				id: 'column-2',
+				id: 'column-idea',
+				title: 'Idea',
+				taskIds: ['tutorial-1', 'tutorial-2', 'tutorial-4', 'tutorial-5'],
+				config: {
+					color: 'primary',
+					icon: 'lightbulb',
+				},
+			},
+			{
+				id: 'column-done',
 				title: 'Done',
 				taskIds: [],
-				icon: 'beer',
+				config: {
+					color: 'success',
+					icon: 'check',
+				},
 			},
 		],
-		columnOrder: ['column-1', 'column-2'],
+		columnOrder: ['column-bin', 'column-idea', 'column-done'],
 	},
 	template_minimal: {
-		tasks: [
-			{ id: 'task-1', content: 'Create a New Awesome Idea' },
-			{ id: 'task-2', content: 'Sort some Ideas' },
-			{ id: 'task-3', content: 'Remove a Bad Idea' },
-			{ id: 'task-4', content: 'Finally complete an Idea' },
-		],
+		tasks: [],
 		columns: [
 			{
-				id: 'column-1',
+				id: 'column-idea',
 				title: 'Idea',
-				taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
+				taskIds: [],
 				icon: 'lightbulb',
 			},
 			{
-				id: 'column-2',
+				id: 'column-done',
 				title: 'Done',
 				taskIds: [],
 				icon: 'beer',
 			},
 		],
-		columnOrder: ['column-1', 'column-2'],
+		columnOrder: ['column-idea', 'column-done'],
 	},
 }
