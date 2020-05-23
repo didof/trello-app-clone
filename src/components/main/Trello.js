@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+
+import { TrelloContext } from '../../contexts/trello/context'
 
 import Column from './Column'
 import CustomColumns from '../UI/CustomColumns'
@@ -6,7 +8,7 @@ import CustomColumns from '../UI/CustomColumns'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 function Trello({ data }) {
-	const [state, setState] = useState(data)
+	const [state, dispatch] = useContext(TrelloContext)
 
 	const handle_dragStart = (result) => {
 		let el = document.getElementById(result.draggableId)
@@ -26,10 +28,10 @@ function Trello({ data }) {
 		)
 			return
 
-		const sourceColumn = state.columns.find(
+		const sourceColumn = data.columns.find(
 			(column) => column.id === source.droppableId
 		)
-		const destinationColumn = state.columns.find(
+		const destinationColumn = data.columns.find(
 			(column) => column.id === destination.droppableId
 		)
 
@@ -43,15 +45,17 @@ function Trello({ data }) {
 				taskIds: updatedTaskIds,
 			}
 
-			const updatedColumns = Array.from(state.columns).filter(
+			const updatedColumns = Array.from(data.columns).filter(
 				(column) => column.id !== updatedColumn.id
 			)
 			updatedColumns.push(updatedColumn)
 
-			setState((prevState) => ({
-				...prevState,
+			const updatedState = {
+				...data,
 				columns: updatedColumns,
-			}))
+			}
+
+			dispatch({ type: 'drop_list', payload: updatedState })
 			return
 		}
 
@@ -70,7 +74,7 @@ function Trello({ data }) {
 			taskIds: updatedDestinationTaskIds,
 		}
 
-		const updatedColumns = Array.from(state.columns).filter((column) => {
+		const updatedColumns = Array.from(data.columns).filter((column) => {
 			return (
 				column.id !== source.droppableId && column.id !== destination.droppableId
 			)
@@ -78,25 +82,27 @@ function Trello({ data }) {
 		updatedColumns.push(updatedSourceColumn)
 		updatedColumns.push(updatedDestinationColumn)
 
-		setState((prevState) => ({
-			...prevState,
+		const updatedState = {
+			...data,
 			columns: updatedColumns,
-		}))
+		}
+
+		dispatch({ type: 'drop_list', payload: updatedState })
 	}
 
 	return (
 		<DragDropContext onDragStart={handle_dragStart} onDragEnd={handle_dragEnd}>
 			<CustomColumns numCols='5'>
-				{state.columnOrder.map((columnId) => {
-					const column = state.columns.find((column) => column.id === columnId)
-					const tasks = column.taskIds.map((taskId) => {
-						return state.tasks.find((task) => task.id === taskId)
-					})
+				{data &&
+					data.columnOrder &&
+					data.columnOrder.map((columnId) => {
+						const column = data.columns.find((column) => column.id === columnId)
+						const tasks = column.taskIds.map((taskId) => {
+							return data.tasks.find((task) => task.id === taskId)
+						})
 
-					return (
-						<Column key={columnId} id={columnId} column={column} tasks={tasks} />
-					)
-				})}
+						return <Column id={columnId} key={columnId} />
+					})}
 			</CustomColumns>
 		</DragDropContext>
 	)

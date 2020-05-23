@@ -1,10 +1,14 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import useChange from '../../customHooks/useChange'
+
+import { TrelloContext } from '../../contexts/trello/context'
 
 import Buttons from '../reusables/Buttons'
 import Button from '../reusables/Button'
 
-function AddTask({ label, config }) {
+function AddTask({ id, config }) {
+	const [state, dispatch] = useContext(TrelloContext)
+
 	const textareaRef = useRef()
 
 	let textareaUptated = `textarea is-fullwidth is-${config.color}`
@@ -20,7 +24,7 @@ function AddTask({ label, config }) {
 	}
 
 	const handle_addTask = () => {
-		
+		dispatch({ type: 'add_task', payload: { columnId: id, content: value } })
 	}
 
 	if (face)
@@ -43,6 +47,7 @@ function AddTask({ label, config }) {
 				justifyContent: 'center',
 				alignItems: 'center',
 			}}
+			onContextMenu={handle_resetForm}
 		>
 			<div className='field'>
 				<div className='control'>

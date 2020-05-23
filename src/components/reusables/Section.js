@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { replaceCharts } from '../../utils/replace'
 import { capitalize } from '../../utils/transform'
 
-function Section({ color, size, title, subtitle, children, icon }) {
+function Section({ id, color, size, title, subtitle, children, icon }) {
 	const sectionRef = useRef()
 	const subtitleRef = useRef()
 	const iconRef = useRef()
@@ -35,7 +35,7 @@ function Section({ color, size, title, subtitle, children, icon }) {
 	}, [color, size, title, subtitle, icon])
 
 	return (
-		<section className='section' ref={sectionRef}>
+		<section className='section' ref={sectionRef} id={id}>
 			<h3 className='title is-3 has-text-centered'>
 				<span className='icon' style={{ marginRight: 32 }} ref={iconRef}>
 					<i className='fas'></i>

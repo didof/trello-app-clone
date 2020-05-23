@@ -2,13 +2,15 @@ import React, { useRef, useContext } from 'react'
 import history from '../../history'
 
 import { TemplateContext } from '../../contexts/templates/context'
+import { TrelloContext } from '../../contexts/trello/context'
 
 import AddCard from './AddCard'
 import Buttons from '../reusables/Buttons'
 import Button from '../reusables/Button'
 
 function Card({ id, label, content }) {
-	const [state, dispatch] = useContext(TemplateContext)
+	const [TemplateState, TemplateDispatch] = useContext(TemplateContext)
+	const [TrelloState, TrelloDispatch] = useContext(TrelloContext)
 
 	const buttonsRef = useRef()
 
@@ -23,11 +25,11 @@ function Card({ id, label, content }) {
 	}
 
 	function handle_deleteTemplate() {
-		dispatch({ type: 'remove_template', payload: id })
+		TemplateDispatch({ type: 'remove_template', payload: id })
 	}
 
 	function handle_pickTemplate() {
-		dispatch({ type: 'pick_template', payload: id })
+		TrelloDispatch({ type: 'pick_template', payload: id })
 		history.push('/dashboard')
 	}
 
@@ -56,30 +58,25 @@ function Card({ id, label, content }) {
 				</div>
 			</div>
 			<footer
-				className='buttons has-haddons is-centered'
 				ref={buttonsRef}
 				style={{
 					visibility: 'hidden',
-					position: 'absolute',
-					width: '100%',
-					padding: 5,
-					bottom: 0,
 				}}
 			>
 				<Buttons addons>
 					<Button
 						click={handle_pickTemplate}
-						styles={['addons', 'primary', 'inverted']}
+						styles={['small', 'addons', 'primary', 'inverted']}
 						icon='edit'
 					>
 						Pick
 					</Button>
-					<Button styles={['addons', 'info', 'inverted']} icon='edit'>
+					<Button styles={['small', 'addons', 'info', 'inverted']} icon='edit'>
 						Edit
 					</Button>
 					<Button
 						click={handle_deleteTemplate}
-						styles={['addons', 'warning', 'outlined']}
+						styles={['small', 'addons', 'warning', 'outlined']}
 						icon='trash'
 					>
 						Delete

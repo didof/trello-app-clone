@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TrelloContext } from '../../contexts/trello/context'
 
 import Task from './Task'
 
@@ -8,11 +9,19 @@ import { capitalize } from '../../utils/transform'
 
 import { Droppable } from 'react-beautiful-dnd'
 
-function Column({ column, tasks }) {
+function Column({ id }) {
+	const [state, dispatch] = useContext(TrelloContext)
+	const column = state.columns.find((column) => column.id === id)
+	const tasks = column.taskIds.map((taskId) => {
+		return state.tasks.find((task) => task.id === taskId)
+	})
+
 	const uptadedIcon = `fas fa-lg fa-${column.config.icon}`
 	const updatedColor = `panel is-${column.config.color}`
 	const addTaskBlock =
-		column.id === 'column-idea' ? <AddTask label={column.title} config={column.config} /> : null
+		column.id === 'column-idea' ? (
+			<AddTask id={column.id} config={column.config} />
+		) : null
 
 	return (
 		<div className={updatedColor} style={{ minHeight: 200 }}>
@@ -42,9 +51,16 @@ function Column({ column, tasks }) {
 							}}
 						>
 							{tasks.map((task, index) => {
-								return (
-									<Task key={task.id} task={task} index={index} config={column.config} />
-								)
+								if (task) {
+									return (
+										<Task
+											key={task.id}
+											task={task}
+											index={index}
+											config={column.config}
+										/>
+									)
+								} else return <div>errore</div>
 							})}
 							{provided.placeholder}
 						</div>
