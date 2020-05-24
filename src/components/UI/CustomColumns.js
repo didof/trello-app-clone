@@ -4,7 +4,7 @@ function CustomColumns({ children, numCols = 3 }) {
 	if(!children) return <div></div>
 
 	let width
-	switch (numCols) {
+	switch (parseInt(numCols)) {
 		case 2:
 			width = 'is-half'
 			break

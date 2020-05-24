@@ -7,8 +7,8 @@ import CustomColumns from '../UI/CustomColumns'
 
 import { DragDropContext } from 'react-beautiful-dnd'
 
-function Trello({ data }) {
-	const [state, dispatch] = useContext(TrelloContext)
+function Trello() {
+	const [data, dispatch] = useContext(TrelloContext)
 
 	const handle_dragStart = (result) => {
 		let el = document.getElementById(result.draggableId)
@@ -92,7 +92,7 @@ function Trello({ data }) {
 
 	return (
 		<DragDropContext onDragStart={handle_dragStart} onDragEnd={handle_dragEnd}>
-			<CustomColumns numCols='5'>
+			<CustomColumns numCols={data.columnOrder.length - 1}>
 				{data &&
 					data.columnOrder &&
 					data.columnOrder.map((columnId) => {
@@ -100,7 +100,6 @@ function Trello({ data }) {
 						const tasks = column.taskIds.map((taskId) => {
 							return data.tasks.find((task) => task.id === taskId)
 						})
-
 						return <Column id={columnId} key={columnId} />
 					})}
 			</CustomColumns>

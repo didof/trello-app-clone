@@ -17,14 +17,14 @@ function AddTask({ id, config }) {
 
 	const [value, bindValue, setValue, resetValue] = useChange('')
 
-	const handle_resetForm = (e) => {
-		e.preventDefault()
+	const handle_resetForm = () => {
 		setFace(true)
 		resetValue()
 	}
 
 	const handle_addTask = () => {
 		dispatch({ type: 'add_task', payload: { columnId: id, content: value } })
+		handle_resetForm()
 	}
 
 	if (face)

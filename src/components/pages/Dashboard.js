@@ -30,8 +30,8 @@ function Dashboard() {
 
 	return (
 		<div className='container'>
-			<p className='title is-1 has-text-black'>Dashboard</p>
-			<Trello data={TrelloState} />
+			{/* <p className='title is-1 has-text-black'>Dashboard</p> */}
+			<Trello />
 		</div>
 	)
 }

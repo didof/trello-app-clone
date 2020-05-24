@@ -15,16 +15,23 @@ function Column({ id }) {
 	const tasks = column.taskIds.map((taskId) => {
 		return state.tasks.find((task) => task.id === taskId)
 	})
-
-	const uptadedIcon = `fas fa-lg fa-${column.config.icon}`
-	const updatedColor = `panel is-${column.config.color}`
 	const addTaskBlock =
 		column.id === 'column-idea' ? (
 			<AddTask id={column.id} config={column.config} />
 		) : null
 
+	const task_actions = {
+		handle_removeTask: (taskId) => {
+			dispatch({ type: 'remove_task', payload: { columnId: id, taskId } })
+		},
+	}
+
 	return (
-		<div className={updatedColor} style={{ minHeight: 200 }}>
+		<div
+			id={id}
+			className={`panel is-${column.config.color}`}
+			style={{ minHeight: 200 }}
+		>
 			<div className='panel-heading'>
 				<span
 					className='icon is-medium'
@@ -34,7 +41,7 @@ function Column({ id }) {
 						borderRight: '1px solid lightgrey',
 					}}
 				>
-					<i className={uptadedIcon}></i>
+					<i className={`fas fa-lg fa-${column.config.icon}`}></i>
 				</span>
 				{capitalize(column.title, true)}
 			</div>
@@ -58,9 +65,10 @@ function Column({ id }) {
 											task={task}
 											index={index}
 											config={column.config}
+											actions={task_actions}
 										/>
 									)
-								} else return <div>errore</div>
+								} else return <div>error</div>
 							})}
 							{provided.placeholder}
 						</div>

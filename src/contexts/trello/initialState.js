@@ -24,15 +24,6 @@ export default {
 		],
 		columns: [
 			{
-				id: 'column-bin',
-				title: 'Bin',
-				taskIds: ['tutorial-3'],
-				config: {
-					color: 'secondary',
-					icon: 'trash',
-				},
-			},
-			{
 				id: 'column-idea',
 				title: 'Idea',
 				taskIds: ['tutorial-1', 'tutorial-2', 'tutorial-4', 'tutorial-5'],
@@ -50,8 +41,17 @@ export default {
 					icon: 'check',
 				},
 			},
+			{
+				id: 'column-bin',
+				title: 'Bin',
+				taskIds: ['tutorial-3'],
+				config: {
+					color: 'secondary',
+					icon: 'trash',
+				},
+			},
 		],
-		columnOrder: ['column-bin', 'column-idea', 'column-done'],
+		columnOrder: ['column-idea', 'column-done','column-bin'],
 	},
 	template_minimal: {
 		tasks: [],

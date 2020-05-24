@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
+import { v4 as uuid } from 'uuid'
 
-function Button({ children, click, styles, icon }) {
+function Button({ children, click, styles, icon, cursor = 'pointer' }) {
 	let buttonRef = useRef()
 
 	useEffect(() => {
@@ -18,6 +19,10 @@ function Button({ children, click, styles, icon }) {
 				}
 				addClass(style)
 			})
+		}
+
+		if(cursor) {
+			buttonRef.current.style.cursor = cursor
 		}
 	}, [styles])
 
